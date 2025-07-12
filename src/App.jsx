@@ -23,9 +23,11 @@ import {
   Zap,
   BarChart3
 } from 'lucide-react'
+import PasswordProtection from './components/PasswordProtection.jsx'
 import './App.css'
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [vaultCount, setVaultCount] = useState([2])
   const [vaultSize, setVaultSize] = useState([150])
   const [timeLeft, setTimeLeft] = useState({
@@ -82,21 +84,21 @@ function App() {
       vaults: "5/year",
       earnings: "€18M/year",
       role: "Tokenize €1B+, lead global vault growth",
-      color: "bg-gradient-to-r from-yellow-400 to-orange-500"
+      color: "bg-gradient-to-r from-blue-400 to-blue-600"
     },
     {
       tier: "Mid Performer", 
       vaults: "2–3",
       earnings: "€4–6M/year",
       role: "Regional vault builder",
-      color: "bg-gradient-to-r from-blue-400 to-purple-500"
+      color: "bg-gradient-to-r from-blue-500 to-blue-700"
     },
     {
       tier: "Strategic Referrer",
       vaults: "1 every 2 years",
       earnings: "€750K/year", 
       role: "One strong anchor connection",
-      color: "bg-gradient-to-r from-green-400 to-teal-500"
+      color: "bg-gradient-to-r from-blue-600 to-blue-800"
     }
   ]
 
@@ -125,27 +127,36 @@ function App() {
     { step: 6, title: "Launch Vault", description: "Start earning in 30–60 days" }
   ]
 
+  if (!isAuthenticated) {
+    return <PasswordProtection onAuthenticated={() => setIsAuthenticated(true)} />
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-slate-900">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+      <section 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/src/assets/skyscraper-bg.jpg')`
+        }}
+      >
+        <div className="absolute inset-0 bg-slate-900/70"></div>
         <div className="absolute inset-0">
           <div className="absolute top-20 left-20 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
-          <div className="absolute top-40 right-32 w-1 h-1 bg-purple-400 rounded-full animate-pulse delay-1000"></div>
-          <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse delay-2000"></div>
-          <div className="absolute bottom-20 right-20 w-2 h-2 bg-yellow-400 rounded-full animate-pulse delay-500"></div>
+          <div className="absolute top-40 right-32 w-1 h-1 bg-blue-300 rounded-full animate-pulse delay-1000"></div>
+          <div className="absolute bottom-32 left-1/4 w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse delay-2000"></div>
+          <div className="absolute bottom-20 right-20 w-2 h-2 bg-blue-600 rounded-full animate-pulse delay-500"></div>
         </div>
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <div className="max-w-4xl mx-auto">
-            <Badge className="mb-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2">
+            <Badge className="mb-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-2">
               <Globe className="w-4 h-4 mr-2" />
               Platinum 528 Program
             </Badge>
             
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              Become a <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Vault Guardian</span> in the Tokenized <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">$16 Trillion</span> Economy
+              Become a <span className="bg-gradient-to-r from-blue-300 to-blue-500 bg-clip-text text-transparent">Vault Guardian</span> in the Tokenized <span className="bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">$16 Trillion</span> Economy
             </h1>
             
             <p className="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
@@ -153,11 +164,11 @@ function App() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-4 text-lg">
+              <Button size="lg" className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 text-lg">
                 Apply for a Platinum 528 Seat
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
-              <Button size="lg" variant="outline" className="border-slate-400 text-slate-300 hover:bg-slate-800 px-8 py-4 text-lg">
+              <Button size="lg" variant="outline" className="border-blue-400 text-blue-300 hover:bg-blue-900/50 px-8 py-4 text-lg">
                 Learn What You Can Earn
                 <Calculator className="ml-2 w-5 h-5" />
               </Button>
@@ -165,16 +176,16 @@ function App() {
             
             {/* Interactive Globe Visualization */}
             <div className="relative mx-auto w-64 h-64 mb-8">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full animate-spin-slow"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-blue-600/30 rounded-full animate-spin-slow"></div>
               <div className="absolute inset-4 bg-gradient-to-r from-slate-800 to-slate-700 rounded-full flex items-center justify-center">
                 <div className="text-center">
                   <div className="text-3xl font-bold text-white">528</div>
                   <div className="text-sm text-slate-300">Global Seats</div>
                 </div>
               </div>
-              <div className="absolute top-8 right-8 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-              <div className="absolute bottom-12 left-12 w-2 h-2 bg-blue-400 rounded-full animate-pulse delay-500"></div>
-              <div className="absolute top-1/2 left-4 w-2 h-2 bg-purple-400 rounded-full animate-pulse delay-1000"></div>
+              <div className="absolute top-8 right-8 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
+              <div className="absolute bottom-12 left-12 w-2 h-2 bg-blue-500 rounded-full animate-pulse delay-500"></div>
+              <div className="absolute top-1/2 left-4 w-2 h-2 bg-blue-600 rounded-full animate-pulse delay-1000"></div>
             </div>
           </div>
         </div>
@@ -194,30 +205,30 @@ function App() {
             </div>
             
             <div className="grid grid-cols-2 gap-6">
-              <Card className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-slate-600">
+              <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/10 border-blue-600/30">
                 <CardContent className="p-6 text-center">
                   <div className="text-3xl font-bold text-blue-400 mb-2">$1T</div>
                   <div className="text-slate-300">NESTOR AUM target by 2030</div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-slate-600">
+              <Card className="bg-gradient-to-br from-blue-600/10 to-blue-700/10 border-blue-600/30">
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-purple-400 mb-2">528</div>
+                  <div className="text-3xl font-bold text-blue-300 mb-2">528</div>
                   <div className="text-slate-300">Total Ambassador seats</div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-gradient-to-br from-green-500/10 to-teal-500/10 border-slate-600">
+              <Card className="bg-gradient-to-br from-blue-400/10 to-blue-500/10 border-blue-600/30">
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-green-400 mb-2">20%</div>
+                  <div className="text-3xl font-bold text-blue-500 mb-2">20%</div>
                   <div className="text-slate-300">$NSTR tokens for Ambassadors</div>
                 </CardContent>
               </Card>
               
-              <Card className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 border-slate-600">
+              <Card className="bg-gradient-to-br from-blue-700/10 to-blue-800/10 border-blue-600/30">
                 <CardContent className="p-6 text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">2.8%+</div>
+                  <div className="text-3xl font-bold text-blue-600 mb-2">2.8%+</div>
                   <div className="text-slate-300">Annual vault fees</div>
                 </CardContent>
               </Card>
@@ -233,13 +244,13 @@ function App() {
           
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {ambassadorTiers.map((tier, index) => (
-              <Card key={index} className="bg-slate-800/50 border-slate-600 overflow-hidden">
+              <Card key={index} className="bg-slate-800/50 border-blue-600/30 overflow-hidden">
                 <div className={`h-2 ${tier.color}`}></div>
                 <CardHeader>
                   <CardTitle className="text-white text-xl">{tier.tier}</CardTitle>
                   <div className="flex justify-between items-center">
-                    <Badge variant="secondary">{tier.vaults}</Badge>
-                    <div className="text-2xl font-bold text-green-400">{tier.earnings}</div>
+                    <Badge variant="secondary" className="bg-blue-600/20 text-blue-300">{tier.vaults}</Badge>
+                    <div className="text-2xl font-bold text-blue-400">{tier.earnings}</div>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -250,7 +261,7 @@ function App() {
           </div>
           
           <div className="text-center">
-            <Button size="lg" className="bg-gradient-to-r from-green-500 to-teal-500 hover:from-green-600 hover:to-teal-600">
+            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700">
               See Full Earnings Forecast
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
@@ -267,7 +278,7 @@ function App() {
           
           <div className="grid md:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <Card key={index} className="bg-slate-800/50 border-slate-600 hover:bg-slate-700/50 transition-colors">
+              <Card key={index} className="bg-slate-800/50 border-blue-600/30 hover:bg-slate-700/50 transition-colors">
                 <CardContent className="p-6 text-center">
                   <feature.icon className="w-12 h-12 text-blue-400 mx-auto mb-4" />
                   <p className="text-slate-300">{feature.text}</p>
@@ -289,14 +300,14 @@ function App() {
               
               <div className="space-y-4 mb-8">
                 {revenueStreams.map((stream, index) => (
-                  <Card key={index} className="bg-slate-800/50 border-slate-600">
+                  <Card key={index} className="bg-slate-800/50 border-blue-600/30">
                     <CardContent className="p-4">
                       <div className="flex justify-between items-center">
                         <div>
                           <div className="font-semibold text-white">{stream.label}</div>
                           <div className="text-sm text-slate-400">{stream.description}</div>
                         </div>
-                        <div className="text-xl font-bold text-green-400">{stream.rate}</div>
+                        <div className="text-xl font-bold text-blue-400">{stream.rate}</div>
                       </div>
                     </CardContent>
                   </Card>
@@ -305,10 +316,10 @@ function App() {
             </div>
             
             <div>
-              <Card className="bg-slate-800/50 border-slate-600">
+              <Card className="bg-slate-800/50 border-blue-600/30">
                 <CardHeader>
                   <CardTitle className="text-white">Interactive Earnings Calculator</CardTitle>
-                  <CardDescription>Adjust parameters to see your potential earnings</CardDescription>
+                  <CardDescription className="text-slate-400">Adjust parameters to see your potential earnings</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div>
@@ -335,9 +346,9 @@ function App() {
                     />
                   </div>
                   
-                  <div className="bg-gradient-to-r from-green-500/10 to-teal-500/10 p-6 rounded-lg">
+                  <div className="bg-gradient-to-r from-blue-500/10 to-blue-600/10 p-6 rounded-lg border border-blue-600/30">
                     <div className="text-center">
-                      <div className="text-3xl font-bold text-green-400 mb-2">
+                      <div className="text-3xl font-bold text-blue-400 mb-2">
                         €{earnings.total.toFixed(1)}M
                       </div>
                       <div className="text-slate-300">Annual Earnings Potential</div>
@@ -345,15 +356,15 @@ function App() {
                     
                     <div className="grid grid-cols-3 gap-4 mt-4 text-center">
                       <div>
-                        <div className="text-lg font-semibold text-blue-400">€{earnings.raise.toFixed(1)}M</div>
+                        <div className="text-lg font-semibold text-blue-300">€{earnings.raise.toFixed(1)}M</div>
                         <div className="text-xs text-slate-400">Raise Commission</div>
                       </div>
                       <div>
-                        <div className="text-lg font-semibold text-purple-400">€{earnings.management.toFixed(1)}M</div>
+                        <div className="text-lg font-semibold text-blue-400">€{earnings.management.toFixed(1)}M</div>
                         <div className="text-xs text-slate-400">Management</div>
                       </div>
                       <div>
-                        <div className="text-lg font-semibold text-green-400">€{earnings.trading.toFixed(1)}M</div>
+                        <div className="text-lg font-semibold text-blue-500">€{earnings.trading.toFixed(1)}M</div>
                         <div className="text-xs text-slate-400">Trading</div>
                       </div>
                     </div>
@@ -366,33 +377,33 @@ function App() {
       </section>
 
       {/* Limited Enrollment */}
-      <section className="py-20 bg-gradient-to-r from-red-500/10 to-orange-500/10">
+      <section className="py-20 bg-gradient-to-r from-blue-500/10 to-blue-600/10">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">Only 528 Platinum Seats. Lifetime Earnings. Global First-Mover Edge.</h2>
           <p className="text-xl text-slate-300 mb-8">Each territory will be closed once allocated. Vaults are geographically assigned.</p>
           
           <div className="flex justify-center gap-8 mb-8">
             <div className="text-center">
-              <div className="text-4xl font-bold text-red-400">{timeLeft.days}</div>
+              <div className="text-4xl font-bold text-blue-300">{timeLeft.days}</div>
               <div className="text-slate-400">Days</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-orange-400">{timeLeft.hours}</div>
+              <div className="text-4xl font-bold text-blue-400">{timeLeft.hours}</div>
               <div className="text-slate-400">Hours</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-yellow-400">{timeLeft.minutes}</div>
+              <div className="text-4xl font-bold text-blue-500">{timeLeft.minutes}</div>
               <div className="text-slate-400">Minutes</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold text-green-400">{timeLeft.seconds}</div>
+              <div className="text-4xl font-bold text-blue-600">{timeLeft.seconds}</div>
               <div className="text-slate-400">Seconds</div>
             </div>
           </div>
           
           <p className="text-lg text-slate-300 mb-8">Applications close: August 25, 2025</p>
           
-          <Button size="lg" className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-8 py-4 text-xl">
+          <Button size="lg" className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 text-xl">
             Apply Now
             <ArrowRight className="ml-2 w-6 h-6" />
           </Button>
@@ -406,9 +417,9 @@ function App() {
           
           <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
             {onboardingSteps.map((step, index) => (
-              <Card key={index} className="bg-slate-800/50 border-slate-600 text-center">
+              <Card key={index} className="bg-slate-800/50 border-blue-600/30 text-center">
                 <CardContent className="p-6">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
                     {step.step}
                   </div>
                   <h3 className="font-semibold text-white mb-2">{step.title}</h3>
@@ -435,11 +446,11 @@ function App() {
             ))}
           </div>
           
-          <Card className="bg-slate-800/50 border-slate-600 max-w-2xl mx-auto">
+          <Card className="bg-slate-800/50 border-blue-600/30 max-w-2xl mx-auto">
             <CardContent className="p-8 text-center">
               <div className="flex justify-center mb-4">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-current" />
+                  <Star key={i} className="w-6 h-6 text-blue-400 fill-current" />
                 ))}
               </div>
               <blockquote className="text-xl text-slate-300 mb-4">
@@ -452,18 +463,18 @@ function App() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20 bg-gradient-to-r from-blue-600/20 to-purple-600/20">
+      <section className="py-20 bg-gradient-to-r from-blue-600/20 to-blue-700/20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-6">
             You're not applying to a program. You're claiming your territory in the future of real wealth.
           </h2>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white px-8 py-4 text-xl">
+            <Button size="lg" className="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-8 py-4 text-xl">
               Apply for Platinum 528 Seat
               <ArrowRight className="ml-2 w-6 h-6" />
             </Button>
-            <Button size="lg" variant="outline" className="border-slate-400 text-slate-300 hover:bg-slate-800 px-8 py-4 text-xl">
+            <Button size="lg" variant="outline" className="border-blue-400 text-blue-300 hover:bg-blue-900/50 px-8 py-4 text-xl">
               Schedule intro call with the founding team
             </Button>
           </div>
